@@ -10,23 +10,22 @@ using Biblioteca.Models;
 
 namespace Biblioteca.Controllers
 {
-    public class PrestamoController : Controller
+    public class PrestamosController : Controller
     {
         private readonly BiblioDatabaseContext _context;
 
-        public PrestamoController(BiblioDatabaseContext context)
+        public PrestamosController(BiblioDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Prestamo
+        // GET: Prestamos
         public async Task<IActionResult> Index()
         {
-            var biblioDatabaseContext = _context.Prestamos.Include(p => p.Libro);
-            return View(await biblioDatabaseContext.ToListAsync());
+            return View(await _context.Prestamos.ToListAsync());
         }
 
-        // GET: Prestamo/Details/5
+        // GET: Prestamos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,7 +34,6 @@ namespace Biblioteca.Controllers
             }
 
             var prestamo = await _context.Prestamos
-                .Include(p => p.Libro)
                 .FirstOrDefaultAsync(m => m.IdPrestamo == id);
             if (prestamo == null)
             {
@@ -45,7 +43,7 @@ namespace Biblioteca.Controllers
             return View(prestamo);
         }
 
-        // GET: Prestamo/Create
+        // GET: Prestamos/Create
         public IActionResult Create()
         {
             LibroDropDownList();
@@ -53,7 +51,7 @@ namespace Biblioteca.Controllers
             return View();
         }
 
-        // POST: Prestamo/Create
+        // POST: Prestamos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -71,21 +69,7 @@ namespace Biblioteca.Controllers
             return View(prestamo);
         }
 
-        //[HttpPost, ActionName("Create")]
-        //public IActionResult CreatePost(Prestamo prestamo)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(prestamo);
-        //        _context.SaveChanges();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    PersonaDropDownList(prestamo.IdPersona);
-        //    LibroDropDownList(prestamo.IdLibro);
-        //    return View(prestamo);
-        //}
-
-        // GET: Prestamo/Edit/5
+        // GET: Prestamos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -98,11 +82,10 @@ namespace Biblioteca.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdLibro"] = new SelectList(_context.Libros, "IdLibro", "Autor", prestamo.IdLibro);
             return View(prestamo);
         }
 
-        // POST: Prestamo/Edit/5
+        // POST: Prestamos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -134,11 +117,10 @@ namespace Biblioteca.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdLibro"] = new SelectList(_context.Libros, "IdLibro", "Autor", prestamo.IdLibro);
             return View(prestamo);
         }
 
-        // GET: Prestamo/Delete/5
+        // GET: Prestamos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +129,6 @@ namespace Biblioteca.Controllers
             }
 
             var prestamo = await _context.Prestamos
-                .Include(p => p.Libro)
                 .FirstOrDefaultAsync(m => m.IdPrestamo == id);
             if (prestamo == null)
             {
@@ -157,7 +138,7 @@ namespace Biblioteca.Controllers
             return View(prestamo);
         }
 
-        // POST: Prestamo/Delete/5
+        // POST: Prestamos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -172,6 +153,7 @@ namespace Biblioteca.Controllers
         {
             return _context.Prestamos.Any(e => e.IdPrestamo == id);
         }
+
         private void PersonaDropDownList(int? selectedPersona = null)
         {
             var personas = _context.Personas;
@@ -182,5 +164,7 @@ namespace Biblioteca.Controllers
             var libros = _context.Libros;
             ViewBag.IdLibro = new SelectList(libros.AsNoTracking(), "IdLibro", "Titulo", selectedLibro);
         }
+
+
     }
 }

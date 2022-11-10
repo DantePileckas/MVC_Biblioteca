@@ -16,21 +16,14 @@ namespace Biblioteca.Models
         public DateTime FechaDevolucion { get; set; }
         public bool devolucion { get; set; }
 
-        [ForeignKey("Libro")]
-        [Column("IdLibro")]
-        public int? IdLibro { get; set; }
-
+      
         [Required(ErrorMessage = "Seleccionar un Libro")]
-        public Libro Libro { get; set; }
+        public int? IdLibro { get; set; }
+        public virtual Libro libro { get; set; }
 
-
-
-        [ForeignKey("Persona")]
-        [Column("IdPersona")]
+        [Required(ErrorMessage = "Seleccionar un Lector")]
         public int? IdPersona { get; set; }
-
-        [Required(ErrorMessage = "Seleccionar un lector")]
-        public virtual Persona Lector { get; set; }
+        public virtual Persona persona { get; set; }
 
     }
 }

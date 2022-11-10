@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div class="form-group">
-                <label asp-for="Lector" class="control-label"></label>
+                <label asp-for="persona" class="control-label"></label>
                 <select asp-for="IdPersona" asp-items="ViewBag.IdPersona">
                     <option selected="selected" value="">
                         Seleccione
@@ -22,7 +22,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Libro" class="control-label"></label>
+                <label asp-for="libro" class="control-label"></label>
                 <select asp-for="IdLibro" asp-items="ViewBag.IdLibro">
                     <option selected="selected" value="">
                         Seleccione
@@ -37,20 +37,18 @@
                 <input asp-for="FechaToma" class="form-control" />
                 <span asp-validation-for="FechaToma" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="FechaDevolucion" class="control-label"></label>
                 <input asp-for="FechaDevolucion" class="form-control" />
                 <span asp-validation-for="FechaDevolucion" class="text-danger"></span>
             </div>
-
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="devolucion" /> @Html.DisplayNameFor(model => model.devolucion)
                 </label>
             </div>
 
-            <div class="form-field">
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
