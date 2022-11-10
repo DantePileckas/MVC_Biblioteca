@@ -13,7 +13,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-12">
-                <a  class="btn btn-success btn-sm" type="button" asp-action="Create">Create Nuevo Lector</a>
+                <a  class="btn btn-primary" type="button" asp-action="Create">Create Nuevo Lector</a>
             </div>
         </div>
         <hr />
@@ -31,7 +31,7 @@
                                     @Html.DisplayNameFor(model => model.Correo)
                                 </th>
                                 <th> @Html.DisplayNameFor(model => model.Clave) </th>
-                                <th></th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,9 +51,9 @@
                                         @Html.DisplayFor(modelItem => item.Clave)
                                     </td>
                                     <td>
-                                        <a class="btn btn-success btn-sm" type="button" asp-action="Edit" asp-route-id="@item.IdPersona">Edit</a>
-                                        <a class="btn btn-success btn-sm" type="button" asp-action="Details" asp-route-id="@item.IdPersona">Details</a>
-                                        <a class="btn btn-success btn-sm" type="button" asp-action="Delete" asp-route-id="@item.IdPersona">Delete</a>
+                                        <a class="btn btn-success" type="button" asp-action="Edit" asp-route-id="@item.IdPersona">Editar</a>
+                                        <a class="btn btn-info" type="button" asp-action="Details" asp-route-id="@item.IdPersona">Visualizar</a>
+                                        <a class="btn btn-danger" type="button" asp-action="Delete" asp-route-id="@item.IdPersona">Eliminar</a>
                                     </td>
                                 </tr>
                             }
