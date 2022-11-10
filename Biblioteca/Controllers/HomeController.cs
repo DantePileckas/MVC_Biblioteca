@@ -1,4 +1,5 @@
-﻿using Biblioteca.Models;
+﻿using Biblioteca.Context;
+using Biblioteca.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,9 +13,11 @@ namespace Biblioteca.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly BiblioDatabaseContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, BiblioDatabaseContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
@@ -33,5 +36,9 @@ namespace Biblioteca.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        
+
+
     }
 }
