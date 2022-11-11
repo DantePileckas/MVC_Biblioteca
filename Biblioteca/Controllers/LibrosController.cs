@@ -20,9 +20,15 @@ namespace Biblioteca.Controllers
         }
 
         // GET: Libros
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Libros.ToListAsync());
+            var libros = from l in _context.Libros select l;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                libros = libros.Where(l => l.Titulo!.Contains(searchString));
+            }
+
+            return View(await libros.ToListAsync());
         }
 
         // GET: Libros/Details/5
@@ -47,6 +53,13 @@ namespace Biblioteca.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on" + searchString;
         }
 
         // POST: Libros/Create

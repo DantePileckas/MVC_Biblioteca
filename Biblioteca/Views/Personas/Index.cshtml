@@ -4,7 +4,16 @@
     ViewData["Title"] = "Registro de Lectores";
 }
 
-<h1>Lectores</h1>
+<h1>Gestión de Lectores</h1>
+
+<br />
+
+<form asp-controller="Personas" asp-action="index" method="get" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" name="SearchString" placeholder="Nombre del Lector">
+    <button value="filter" type="submit">Buscar</button>
+</form>
+
+<br />
 
 <div class="card shadow mb-4">
     <div class="card-header py-3 bg-primary">

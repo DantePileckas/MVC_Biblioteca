@@ -20,9 +20,16 @@ namespace Biblioteca.Controllers
         }
 
         // GET: Personas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Personas.ToListAsync());
+            var personas = from p in _context.Personas select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                personas = personas.Where(p => p.Nombre!.Contains(searchString));
+            }
+
+
+            return View(await personas.ToListAsync());
         }
 
         // GET: Personas/Details/5
@@ -49,9 +56,16 @@ namespace Biblioteca.Controllers
             return View();
         }
 
+        [HttpPost]
+
+        public string Index(string searchString, bool notUsed)
+        {
+            return "From [HttpPost]Index: filter on" + searchString;
+        }
+
         // POST: Personas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdPersona,Nombre,Apellido,Correo,Clave")] Persona persona)

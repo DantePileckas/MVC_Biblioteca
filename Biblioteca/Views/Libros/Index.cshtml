@@ -5,6 +5,16 @@
 }
 
 <h1>Gestión de Libros</h1>
+
+<br />
+
+<form asp-controller="Libros" asp-action="index" method="get" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="text" name="SearchString" placeholder="Título del Libro">
+    <button value="filter" type="submit">Buscar</button>
+</form>
+
+<br />
+
 <div class="card shadow mb-4">
     <div class="card-header py-3 bg-primary">
         <h6 class="m-0 font-weight-bold text-white">Lista de Lectores</h6>
@@ -12,7 +22,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-sm-12">
-                <a  class="btn btn-primary" type="button" asp-action="Create">Crear Nuevo Libro</a>
+                <a class="btn btn-primary" type="button" asp-action="Create">Crear Nuevo Libro</a>
             </div>
         </div>
         <hr />
@@ -25,16 +35,16 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Titulo)
                                 </th>
-                                <th>             
+                                <th>
                                     @Html.DisplayNameFor(model => model.Autor)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Ejemplares)
                                 </th>
-                                <th>               
+                                <th>
                                     @Html.DisplayNameFor(model => model.rutaImagen)
                                 </th>
-                                <th>               
+                                <th>
                                     @Html.DisplayNameFor(model => model.Estado)
                                 </th>
                                 <th>Acciones</th>
