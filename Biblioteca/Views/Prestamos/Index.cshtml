@@ -6,56 +6,72 @@
 
 <h1>Gestión de Préstamos</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.libro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.persona)
-            </th>
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary">
+        <h6 class="m-0 font-weight-bold text-white">Lista de Préstamos</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="btn btn-primary" type="button" asp-action="Create">Registrar Nuevo Préstamo</a>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tabla" style="width:100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.libro)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.persona)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FechaToma)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FechaDevolucion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.devolucion)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdLibro)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IdPersona)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaToma)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FechaDevolucion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.devolucion)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" type="button" asp-action="Edit" asp-route-id="@item.IdPrestamo">Editar</a>
+                                        <a class="btn btn-info" type="button" asp-action="Details" asp-route-id="@item.IdPrestamo">Visualizar</a>
+                                        <a class="btn btn-danger" type="button" asp-action="Delete" asp-route-id="@item.IdPrestamo">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-            <th>
-                @Html.DisplayNameFor(model => model.FechaToma)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaDevolucion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.devolucion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLibro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdPersona)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaToma)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaDevolucion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.devolucion)
-            </td>
-          
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPrestamo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPrestamo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPrestamo">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    </div>
+</div>

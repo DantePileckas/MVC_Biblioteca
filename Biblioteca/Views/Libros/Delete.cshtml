@@ -45,7 +45,14 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdLibro" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <br />
+        <br />
+
+        <div>
+            <a asp-action="Index">
+                <span><img style="margin: 0; display: inline-block; height: 40px; float: none;" src="~/img/iconoAtras - Copia.png" /></span>
+            </a>
+        </div>
     </form>
 </div>
