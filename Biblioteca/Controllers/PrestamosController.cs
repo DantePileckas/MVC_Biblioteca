@@ -19,6 +19,8 @@ namespace Biblioteca.Controllers
             _context = context;
         }
 
+  
+
         // GET: Prestamos
         public async Task<IActionResult> Index()
         {
@@ -61,6 +63,7 @@ namespace Biblioteca.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(prestamo);
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -82,6 +85,8 @@ namespace Biblioteca.Controllers
             {
                 return NotFound();
             }
+            LibroDropDownList(prestamo.IdLibro);
+            PersonaDropDownList(prestamo.IdPersona);
             return View(prestamo);
         }
 
@@ -164,6 +169,7 @@ namespace Biblioteca.Controllers
             var libros = _context.Libros;
             ViewBag.IdLibro = new SelectList(libros.AsNoTracking(), "IdLibro", "Titulo", selectedLibro);
         }
+
 
 
     }

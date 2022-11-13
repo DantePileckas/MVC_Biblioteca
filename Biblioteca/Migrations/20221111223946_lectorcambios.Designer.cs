@@ -4,14 +4,16 @@ using Biblioteca.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(BiblioDatabaseContext))]
-    partial class BiblioDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20221111223946_lectorcambios")]
+    partial class lectorcambios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,15 +37,6 @@ namespace Biblioteca.Migrations
 
                     b.Property<int>("Ejemplares")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImageMimeType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("PhotoFile")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()

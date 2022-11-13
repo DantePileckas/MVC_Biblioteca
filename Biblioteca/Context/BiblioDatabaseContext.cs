@@ -17,5 +17,8 @@ namespace Biblioteca.Context
         public DbSet<Prestamo> Prestamos { get; set; }
         public DbSet<Libro> Libros { get; set; }
 
+
+
+
     }
 }

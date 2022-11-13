@@ -10,40 +10,42 @@
     <h4>Libro</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Autor)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Autor)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ejemplares)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ejemplares)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.rutaImagen)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FotoLibro)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.rutaImagen)
+        <dd class="col-sm-10">
+            <div class="photo-display">
+                <img class="photo-display-img" src="@Url.Action("GetImage", "Libro", new { Id = Model.IdLibro })" />
+            </div>
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Disponibilidad)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Disponibilidad)
         </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-success" type="button"  asp-action="Edit" asp-route-id="@Model.IdLibro">Editar</a>
+    <a class="btn btn-success" type="button" asp-action="Edit" asp-route-id="@Model.IdLibro">Editar</a>
     <br />
     <br />
     <a asp-action="Index">

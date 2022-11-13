@@ -13,31 +13,45 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdPrestamo" />
+
+            <div class="form-group">
+                <label asp-for="persona"></label>
+                <select asp-for="IdPersona" asp-items="ViewBag.IdPersona">
+                    <option selected="selected" value="">
+                        Seleccione
+                    </option>
+                </select>
+                <span asp-validation-for="IdPersona"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="libro"></label>
+                <select asp-for="IdLibro" asp-items="ViewBag.IdLibro">
+                    <option selected="selected" value="">
+                        Seleccione
+                    </option>
+                </select>
+                <span asp-validation-for="IdLibro"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="FechaToma" class="control-label"></label>
                 <input asp-for="FechaToma" class="form-control" />
                 <span asp-validation-for="FechaToma" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="FechaDevolucion" class="control-label"></label>
                 <input asp-for="FechaDevolucion" class="form-control" />
                 <span asp-validation-for="FechaDevolucion" class="text-danger"></span>
             </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="devolucion" /> @Html.DisplayNameFor(model => model.devolucion)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="IdLibro" class="control-label"></label>
-                <input asp-for="IdLibro" class="form-control" />
-                <span asp-validation-for="IdLibro" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdPersona" class="control-label"></label>
-                <input asp-for="IdPersona" class="form-control" />
-                <span asp-validation-for="IdPersona" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>

@@ -29,13 +29,14 @@
                 <span asp-validation-for="Ejemplares" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="rutaImagen" class="control-label"></label>
-                <input asp-for="rutaImagen" class="form-control" />
-                <span asp-validation-for="rutaImagen" class="text-danger"></span>
+                <input type="hidden" asp-for="ImageMimeType" />
+                <input type="hidden" asp-for="ImageName" />
+                @Html.HiddenFor(l => l.FotoLibro)
+                @Html.HiddenFor(l => l.PhotoFile)
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
+                    <input class="form-check-input" asp-for="Disponibilidad" /> @Html.DisplayNameFor(model => model.Disponibilidad)
                 </label>
             </div>
             <div class="form-group">

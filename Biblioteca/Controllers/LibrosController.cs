@@ -7,14 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Biblioteca.Context;
 using Biblioteca.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System.Web.Helpers;
 
 namespace Biblioteca.Controllers
 {
     public class LibrosController : Controller
     {
         private readonly BiblioDatabaseContext _context;
+        private IWebHostEnvironment _environment;
 
         public LibrosController(BiblioDatabaseContext context)
+
         {
             _context = context;
         }
@@ -62,15 +67,37 @@ namespace Biblioteca.Controllers
             return "From [HttpPost]Index: filter on" + searchString;
         }
 
+        public void CreateLibro(Libro libro)
+        {
+            if (libro.FotoLibro != null && libro.FotoLibro.Length > 0)
+            {
+                libro.ImageMimeType = libro.FotoLibro.ContentType;
+                libro.ImageName = Path.GetFileName(libro.FotoLibro.FileName);
+                if (ModelState.IsValid)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        libro.FotoLibro.CopyTo(memoryStream);
+                        libro.PhotoFile = memoryStream.ToArray();
+                    }
+                }
+                _context.Add(libro);
+                _context.SaveChanges();
+            }
+        }
+
         // POST: Libros/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLibro,Titulo,Autor,Ejemplares,rutaImagen,Estado")] Libro libro)
+        public async Task<IActionResult> Create([Bind("IdLibro,Titulo,Autor,Ejemplares,FotoLibro,Disponibilidad")] Libro libro)
         {
+
+
             if (ModelState.IsValid)
             {
+                CreateLibro(libro);
                 _context.Add(libro);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -99,7 +126,7 @@ namespace Biblioteca.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdLibro,Titulo,Autor,Ejemplares,rutaImagen,Estado")] Libro libro)
+        public async Task<IActionResult> Edit(int id, [Bind("IdLibro,Titulo,Autor,Ejemplares,rutaImagen,Disponibilidad")] Libro libro)
         {
             if (id != libro.IdLibro)
             {
@@ -162,5 +189,53 @@ namespace Biblioteca.Controllers
         {
             return _context.Libros.Any(e => e.IdLibro == id);
         }
+
+        public Libro GetLibroPorId(int id)
+        {
+            return _context.Libros.Include(l => l.Prestamos)
+                .SingleOrDefault(l => l.IdLibro == id);
+        }
+
+   
+
+        public IActionResult GetImage(int id)
+        {
+            Libro requestedLibro = GetLibroPorId(id);
+            if (requestedLibro != null)
+            {
+                string webRootpath = _environment.WebRootPath;
+                string folderPath = "\\img\\";
+                string fullPath = webRootpath + folderPath + requestedLibro.ImageName;
+                if (System.IO.File.Exists(fullPath))
+                {
+                    FileStream fileOnDisk = new FileStream(fullPath, FileMode.Open);
+                    byte[] fileBytes;
+                    using (BinaryReader br = new BinaryReader(fileOnDisk))
+                    {
+                        fileBytes = br.ReadBytes((int)fileOnDisk.Length);
+                    }
+                    return File(fileBytes, requestedLibro.ImageMimeType);
+                }
+                else
+                {
+                    if (requestedLibro.PhotoFile.Length > 0)
+                    {
+                        return File(requestedLibro.PhotoFile, requestedLibro.ImageMimeType);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
     }
 }
+
+
+
