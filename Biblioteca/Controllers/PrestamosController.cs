@@ -53,6 +53,12 @@ namespace Biblioteca.Controllers
             return View();
         }
 
+        //var personas = from p in _context.Personas select p;
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        personas = personas.Where(p => p.Nombre!.Contains(searchString));
+        //    }
+
         // POST: Prestamos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -162,12 +168,15 @@ namespace Biblioteca.Controllers
         private void PersonaDropDownList(int? selectedPersona = null)
         {
             var personas = _context.Personas;
-            ViewBag.IdPersona = new SelectList(personas.AsNoTracking(), "IdPersona", "Nombre", selectedPersona);
+            //ViewBag.IdPersona = new SelectList(personas.AsNoTracking(), "IdPersona", "Nombre", selectedPersona);
+            ViewBag.IdPersona = new SelectList(personas.AsNoTracking(), "IdPersona", "NombreApellido", selectedPersona);
         }
+
+
         private void LibroDropDownList(int? selectedLibro = null)
         {
             var libros = _context.Libros;
-            ViewBag.IdLibro = new SelectList(libros.AsNoTracking(), "IdLibro", "Titulo", selectedLibro);
+            ViewBag.IdLibro = new SelectList(libros.AsNoTracking(), "IdLibro", "LibroAutor", selectedLibro);
         }
 
 

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Biblioteca.Models.Prestamo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Préstamos";
 }
 
 <h1>Gestión de Préstamos</h1>
@@ -46,7 +46,8 @@
                             {
                                 <tr>
                                     <td>
-                                       # @Html.DisplayFor(modelItem => item.IdLibro)
+                                        # @Html.DisplayFor(modelItem => item.IdLibro)
+                                          @Html.DisplayFor(modelItem => item.libro.LibroAutor)
                                     </td>
                                     <td>
                                        # @Html.DisplayFor(modelItem => item.IdPersona)

@@ -19,22 +19,20 @@ namespace Biblioteca.Models
         [Required(ErrorMessage = "El autor es obligatorio")]
         public string Autor { get; set; }
 
-        [Range(0, 100)]
+        public string LibroAutor
+        {
+            get
+            {
+                return $"{Titulo} {Autor}";
+            }
+        }
+
+        [Range(0, 100,ErrorMessage ="Valores entre 0 a 100")]
         [Required(ErrorMessage = "Campo obligatorio")]
         public int Ejemplares { get; set; }
-        //public string rutaImagen { get; set; }
+
         public bool Disponibilidad { get; set; }
       
-        [NotMapped]
-        [Display(Name = "Imagen Libro:")]
-        public IFormFile FotoLibro { get; set; }
-
-        public string ImageName { get; set; }
-
-        public byte[] PhotoFile { get; set; }
-
-        public string ImageMimeType { get; set; }
-
         public ICollection<Prestamo> Prestamos { get; set; }
 
     }

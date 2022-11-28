@@ -29,14 +29,6 @@
             @Html.DisplayFor(model => model.Ejemplares)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FotoLibro)
-        </dt>
-        <dd class="col-sm-10">
-            <div class="photo-display">
-                <img class="photo-display-img" src="@Url.Action("GetImage", "Libro", new { Id = Model.IdLibro })" />
-            </div>
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Disponibilidad)
         </dt>
         <dd class="col-sm-10">
@@ -52,3 +44,4 @@
         <span><img style="margin: 0; display: inline-block; height: 40px; float: none;" src="~/img/iconoAtras - Copia.png" /></span>
     </a>
 </div>
+

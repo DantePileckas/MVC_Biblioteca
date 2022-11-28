@@ -36,20 +36,8 @@ namespace Biblioteca.Migrations
                     b.Property<int>("Ejemplares")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageMimeType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("PhotoFile")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("rutaImagen")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdLibro");
@@ -70,7 +58,8 @@ namespace Biblioteca.Migrations
 
                     b.Property<string>("Clave")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Correo")
                         .IsRequired()

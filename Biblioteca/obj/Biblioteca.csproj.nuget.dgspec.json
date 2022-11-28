@@ -40,6 +40,10 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Grpc.Core": {
+              "target": "Package",
+              "version": "[2.46.5, )"
+            },
             "Microsoft.AspNet.WebPages": {
               "target": "Package",
               "version": "[3.2.9, )"

@@ -12,19 +12,28 @@ namespace Biblioteca.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPersona { get; set; }
-        [Required(ErrorMessage = "El nombre es obligatorio")]
+
         [DataType(DataType.Text)]
+        [Required(ErrorMessage = "El nombre es obligatorio")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "El apellido es obligatorio")]
         [DataType(DataType.Text)]
+        [Required(ErrorMessage = "El apellido es obligatorio")]
+    
         public string Apellido { get; set; }
+        public string NombreApellido
+        {
+            get { return $"{Nombre} {Apellido}";
+            }
+        }
 
         [Required(ErrorMessage = "El correo es obligatorio")]
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Correo no válido")]
         public string Correo { get; set; }
 
+        [DataType(DataType.Password)]
         [Required(ErrorMessage = "La clave es obligatorio")]
+        [MaxLength(8,ErrorMessage = "Longitud mínima: 8 caracteres")]
         public string Clave { get; set; }
         public ICollection<Prestamo> Prestamos { get; set; }
 

@@ -30,14 +30,6 @@
             @Html.DisplayFor(model => model.Ejemplares)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FotoLibro)
-        </dt>
-        <dd class="col-sm-10">
-            <div class="photo-display">
-                <img class="photo-display-img" src="@Url.Action("GetImage", "Libro", new { Id = Model.IdLibro })" />
-            </div>
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Disponibilidad)
         </dt>
         <dd class="col-sm-10">
@@ -47,7 +39,7 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdLibro" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
         <br />
         <br />
 
@@ -58,3 +50,4 @@
         </div>
     </form>
 </div>
+

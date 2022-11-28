@@ -13,10 +13,11 @@ namespace Biblioteca.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPrestamo { get; set; }
         public DateTime FechaToma { get; set; }
+
+        [Required(ErrorMessage = "Revisa la Fecha")]
         public DateTime FechaDevolucion { get; set; }
         public bool devolucion { get; set; }
 
-      
         [Required(ErrorMessage = "Seleccionar un Libro")]
         public int? IdLibro { get; set; }
         public virtual Libro libro { get; set; }

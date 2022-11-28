@@ -10,19 +10,21 @@ using Biblioteca.Models;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Web.Helpers;
+using Microsoft.AspNetCore.Http;
+using Biblioteca.Migrations;
+using Grpc.Core;
 
 namespace Biblioteca.Controllers
 {
     public class LibrosController : Controller
     {
         private readonly BiblioDatabaseContext _context;
-        private IWebHostEnvironment _environment;
-
         public LibrosController(BiblioDatabaseContext context)
 
         {
             _context = context;
         }
+
 
         // GET: Libros
         public async Task<IActionResult> Index(string searchString)
@@ -60,44 +62,28 @@ namespace Biblioteca.Controllers
             return View();
         }
 
-        [HttpPost]
 
+
+
+        [HttpPost]
         public string Index(string searchString, bool notUsed)
         {
             return "From [HttpPost]Index: filter on" + searchString;
         }
 
-        public void CreateLibro(Libro libro)
-        {
-            if (libro.FotoLibro != null && libro.FotoLibro.Length > 0)
-            {
-                libro.ImageMimeType = libro.FotoLibro.ContentType;
-                libro.ImageName = Path.GetFileName(libro.FotoLibro.FileName);
-                if (ModelState.IsValid)
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        libro.FotoLibro.CopyTo(memoryStream);
-                        libro.PhotoFile = memoryStream.ToArray();
-                    }
-                }
-                _context.Add(libro);
-                _context.SaveChanges();
-            }
-        }
+      
+
 
         // POST: Libros/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLibro,Titulo,Autor,Ejemplares,FotoLibro,Disponibilidad")] Libro libro)
+        public async Task<IActionResult> Create([Bind("IdLibro,Titulo,Autor,Ejemplares,Disponibilidad")] Libro libro)
         {
-
-
             if (ModelState.IsValid)
             {
-                CreateLibro(libro);
+                libro.Disponibilidad = true;
                 _context.Add(libro);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -196,46 +182,12 @@ namespace Biblioteca.Controllers
                 .SingleOrDefault(l => l.IdLibro == id);
         }
 
-   
 
-        public IActionResult GetImage(int id)
-        {
-            Libro requestedLibro = GetLibroPorId(id);
-            if (requestedLibro != null)
-            {
-                string webRootpath = _environment.WebRootPath;
-                string folderPath = "\\img\\";
-                string fullPath = webRootpath + folderPath + requestedLibro.ImageName;
-                if (System.IO.File.Exists(fullPath))
-                {
-                    FileStream fileOnDisk = new FileStream(fullPath, FileMode.Open);
-                    byte[] fileBytes;
-                    using (BinaryReader br = new BinaryReader(fileOnDisk))
-                    {
-                        fileBytes = br.ReadBytes((int)fileOnDisk.Length);
-                    }
-                    return File(fileBytes, requestedLibro.ImageMimeType);
-                }
-                else
-                {
-                    if (requestedLibro.PhotoFile.Length > 0)
-                    {
-                        return File(requestedLibro.PhotoFile, requestedLibro.ImageMimeType);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+
 
     }
 }
+
 
 
 
