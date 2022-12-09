@@ -19,13 +19,36 @@ namespace Biblioteca.Controllers
             _context = context;
         }
 
-  
+
 
         // GET: Prestamos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Prestamos.ToListAsync());
+            List<Prestamo> misPrestamos = await _context.Prestamos.Include("persona").ToListAsync();
+            misPrestamos = await _context.Prestamos.Include("libro").ToListAsync();
+
+            foreach (Prestamo item in misPrestamos)
+            {
+                item.persona = _context.Personas.FirstOrDefault (a => a.IdPersona == item.IdPersona);
+                item.libro = _context.Libros.FirstOrDefault(a => a.IdLibro == item.IdLibro);
+
+            }
+
+            return View(misPrestamos);
+
         }
+
+        //public async Task<IActionResult> Personas()
+        //{
+        //    List<Prestamo> misPersonas = await _context.Prestamos.Include("persona").ToListAsync();
+
+        //    foreach (Prestamo item in misPersonas)
+        //    {
+        //        item.persona = _context.Personas.First(a => a.IdPersona == item.IdPersona);
+        //    }
+
+        //    return View(misPersonas);
+        //}
 
         // GET: Prestamos/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -53,6 +76,10 @@ namespace Biblioteca.Controllers
             return View();
         }
 
+        public bool validarFecha(DateTime fechaDevol, DateTime fechaToma){
+            return fechaDevol > fechaToma;
+        }
+
         //var personas = from p in _context.Personas select p;
         //    if (!String.IsNullOrEmpty(searchString))
         //    {
@@ -68,10 +95,19 @@ namespace Biblioteca.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(prestamo);
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.errorFecha = "";
+                if (validarFecha(prestamo.FechaDevolucion, prestamo.FechaToma))
+                {
+                    Console.WriteLine(prestamo.FechaToma + " " + prestamo.FechaDevolucion);
+                    _context.Add(prestamo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.errorFecha = "La Fecha de Devolución no puede ser anterior a la Fecha de Toma";
+                }
+                
             }
             LibroDropDownList(prestamo.IdLibro);
             PersonaDropDownList(prestamo.IdPersona);

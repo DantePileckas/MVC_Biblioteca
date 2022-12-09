@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,7 @@ namespace Biblioteca.Models
         public int IdPrestamo { get; set; }
         public DateTime FechaToma { get; set; }
 
+        //[Remote(action: "validarFecha", controller: "Prestamos", ErrorMessage = "Fecha Inválida")]
         [Required(ErrorMessage = "Revisa la Fecha")]
         public DateTime FechaDevolucion { get; set; }
         public bool devolucion { get; set; }
