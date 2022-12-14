@@ -38,18 +38,7 @@ namespace Biblioteca.Controllers
 
         }
 
-        //public async Task<IActionResult> Personas()
-        //{
-        //    List<Prestamo> misPersonas = await _context.Prestamos.Include("persona").ToListAsync();
-
-        //    foreach (Prestamo item in misPersonas)
-        //    {
-        //        item.persona = _context.Personas.First(a => a.IdPersona == item.IdPersona);
-        //    }
-
-        //    return View(misPersonas);
-        //}
-
+      
         // GET: Prestamos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -79,6 +68,8 @@ namespace Biblioteca.Controllers
         public bool validarFecha(DateTime fechaDevol, DateTime fechaToma){
             return fechaDevol > fechaToma;
         }
+
+
 
         //var personas = from p in _context.Personas select p;
         //    if (!String.IsNullOrEmpty(searchString))

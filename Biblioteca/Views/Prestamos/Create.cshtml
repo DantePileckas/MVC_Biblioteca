@@ -42,7 +42,7 @@
                 <label asp-for="FechaDevolucion" class="control-label"></label>
                 <input asp-for="FechaDevolucion" class="form-control" />
                 <span asp-validation-for="FechaDevolucion" class="text-danger"></span>
-                @ViewBag.errorFecha
+                <p style="color:red"> @ViewBag.errorFecha</p> 
             </div>
 
             <div class="form-group form-check">
